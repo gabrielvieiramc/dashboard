@@ -1,0 +1,21 @@
+.env
+node_modules
+/dist
+package-lock.json
+
+# Logs
+*.log
+
+# Build directories
+/build
+
+# Cache files
+*.cache
+
+# Editor directories
+.vscode/
+.idea/
+
+# System files
+Thumbs.db
+.DS_Store
