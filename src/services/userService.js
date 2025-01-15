@@ -1,6 +1,8 @@
 const bcrypt = require('bcrypt');
 const UserRepository = require('../database/repositories/userRepository');
 const { ValidationError } = require('../core/errors/errors');
+const UserDTO = require('../models/dtos/userDTO');
+
 
 class UserService {
     async createUser(userData, adminRole) {
@@ -12,10 +14,11 @@ class UserService {
 
         const hashedPassword = await bcrypt.hash(userData.password, 10);
 
-        return UserRepository.create({
+        const user = await UserRepository.create({
             ...userData,
             password: hashedPassword
         });
+        return new UserDTO(user);
     }
 
     async updateUser(id, userData, adminRole) {
@@ -36,7 +39,7 @@ class UserService {
             user.email = userData.email;
         }
 
-        if (updateRole.role) {
+        if (userData.role) {
             const validRoles = ['ADMIN', 'USER'];
             if (!validRoles.includes(userData.role)) {
                 throw new ValidationError('Role inválida');
@@ -48,7 +51,9 @@ class UserService {
             user.password = await bcrypt.hash(userData.password, 10);
         }
 
-        return UserRepository.update(userId, user);
+        await UserRepository.update(userId, user);
+
+        return new UserDTO(user);
     }
 
     async deleteUser(id, adminRole) {
@@ -62,9 +67,10 @@ class UserService {
         return UserRepository.delete(id);
     }
 
-    async getAllUsers() {
+    async getAllUsers(adminRole) {
+        this._validateAdminRole(adminRole);
         const users = await UserRepository.findAll();
-        return users;
+        return users.map(user => new UserDTO(user));
     }
 
     _validateAdminRole(role) {
