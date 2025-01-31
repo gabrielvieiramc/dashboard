@@ -1,7 +1,17 @@
 'use strict';
 
 const bcrypt = require('bcrypt');
-require('dotenv').config();
+const dotenv = require('dotenv');
+const path = require('path');
+
+const env = process.env.NODE_ENV || 'development';
+if (env === 'production') {
+  dotenv.config({ path: '.env.production' });
+} else {
+  dotenv.config();
+}
+
+console.log('NODE_ENV:', env);
 
 
 module.exports = {
