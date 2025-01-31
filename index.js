@@ -30,7 +30,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 app.use('/auth', authRoutes);
-app.use('/users', userRoutes);
+app.use('/usuarios', userRoutes);
 
 const PORT = process.env.PORT;
 

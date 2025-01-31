@@ -7,6 +7,7 @@ const adminMiddleware = require('../core/middlewares/adminMiddleware'); // Impor
 const router = express.Router();
 
 // Aplica o authMiddleware para todas as rotas de /users
+router.use(adminMiddleware);
 router.use(authMiddleware);
 
 // Aplica o adminMiddleware para as rotas que só administradores podem acessar
