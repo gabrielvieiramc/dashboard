@@ -1,6 +1,6 @@
 const { ValidationError: SequelizeValidationError } = require('sequelize');
 const bcrypt = require('bcrypt');
-const UserRepository = require('../database/repositories/userRepository');
+const UserRepository = require('../database/repositories/UserRepository');
 const { ValidationError } = require('../core/errors/errors');
 const UserResponseDto = require('../dtos/userResponseDto');
 

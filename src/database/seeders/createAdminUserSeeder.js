@@ -2,7 +2,6 @@
 
 const bcrypt = require('bcrypt');
 const dotenv = require('dotenv');
-const path = require('path');
 
 const env = process.env.NODE_ENV || 'development';
 if (env === 'production') {
@@ -15,7 +14,7 @@ console.log('NODE_ENV:', env);
 
 
 module.exports = {
-  async up(queryInterface, Sequelize) {
+  async up(queryInterface) {
     const adminName = process.env.ADMIN_NAME;
     const adminEmail = process.env.ADMIN_EMAIL;
     const adminPassword = process.env.ADMIN_PASSWORD;
@@ -38,7 +37,7 @@ module.exports = {
     ]);
   },
 
-  async down(queryInterface, Sequelize) {
+  async down(queryInterface) {
     const adminEmail = process.env.ADMIN_EMAIL;
     await queryInterface.bulkDelete('users', { email: adminEmail });
   },

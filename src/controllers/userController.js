@@ -1,4 +1,4 @@
-const UserService = require('../services/userService');
+const UserService = require('../services/UserService.js');
 const { ValidationError } = require('../core/errors/errors');
 
 class UserController {
